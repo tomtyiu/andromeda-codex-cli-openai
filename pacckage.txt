@@ -1,0 +1,4 @@
+{
+  "command": "codex.fixCode",
+  "title": "Codex: Fix Selected Code"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "andromeda-codex",
+  "displayName": "andromeda codex",
+  "description": "OpenAI's Codex CLI for VScode",
+  "version": "0.0.8",
+  "publisher": "ThomasYIu0447",
+  "icon": "images/icon.png",
+  "repository": "https://github.com/tomtyiu/codex-vscode-TY/tree/main/packages",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "AI"
+  ],
+  "activationEvents": [
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codex.prompt",
+        "title": "Codex: Run Prompt"
+      },
+      {
+        "command": "codex.model",
+        "title": "Codex: Model o4-mini"
+      },
+      {
+        "command": "codex.fixCode",
+        "title": "Codex: Fix Selected Code"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "codex.fixCode",
+          "when": "editorTextFocus && editorHasSelection",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "esbuild": "^0.25.3",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "@openai/codex": "^0.1.2505172129",
+    "node-fetch": "^3.3.2",
+  }
+}
