@@ -35,41 +35,13 @@ export function activate(context: vscode.ExtensionContext) {
         // Write the original code to a temp file
         const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'codex-prompt-'));
         const inputFile = path.join(tempDir, 'input.txt');
-        const outputFile = path.join(tempDir, 'output.txt');
         await fs.writeFile(inputFile, original, 'utf8');
 
-        // Run Codex CLI and output to output.txt
+        // Run Codex CLI
         const escaped = prompt.replace(/"/g, '\\"');
         const terminal = vscode.window.createTerminal({ name: 'Codex' });
         terminal.show(true);
         terminal.sendText(`npx codex "${escaped} ${filePath}"`, true);
-
-        // Read the fixed code from output.txt
-        const modified = await fs.readFile(outputFile, 'utf8');
-
-        // If the file content has changed, show diff and prompt user
-        if (original !== modified) {
-            await showDiffInEditor(original, modified, 'Codex Prompt Diff');
-            const keep = await vscode.window.showInformationMessage(
-                'Codex made changes to this file. Do you want to keep the changes?',
-                'Keep', 'Ignore'
-            );
-            if (keep === 'Keep') {
-                const edit = new vscode.WorkspaceEdit();
-                const fullRange = new vscode.Range(
-                    editor.document.positionAt(0),
-                    editor.document.positionAt(original.length)
-                );
-                edit.replace(editor.document.uri, fullRange, modified);
-                await vscode.workspace.applyEdit(edit);
-                await editor.document.save();
-                vscode.window.showInformationMessage('Codex changes applied.');
-            } else {
-                vscode.window.showInformationMessage('Codex changes ignored.');
-            }
-        } else {
-            vscode.window.showInformationMessage('No changes were made by Codex.');
-        }
     });
 
     // Register the codex.model command
@@ -157,24 +129,19 @@ async function getCodexFix(original: string): Promise<string> {
     // Write the original code to a temp file
     const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'codex-'));
     const inputFile = path.join(tempDir, 'input.txt');
-    const outputFile = path.join(tempDir, 'output.txt');
     await fs.writeFile(inputFile, original, 'utf8');
 
-    // Run the Codex CLI to fix the code and output to output.txt
-    // Adjust the CLI command as needed for your setup
-    const command = `npx codex fix "${inputFile}" > "${outputFile}"`;
-    await new Promise<void>((resolve, reject) => {
-        exec(command, (error) => {
+    // Run the Codex CLI and capture its output directly
+    const command = `npx codex fix "${inputFile}"`;
+    const fixed = await new Promise<string>((resolve, reject) => {
+        exec(command, (error, stdout) => {
             if (error) {
                 reject(error);
             } else {
-                resolve();
+                resolve(stdout);
             }
         });
     });
-
-    // Read the fixed code from output.txt
-    const fixed = await fs.readFile(outputFile, 'utf8');
     return fixed;
 }
 
