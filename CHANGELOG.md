@@ -1,10 +1,18 @@
-# Change Log
+# Changelog
 
-All notable changes to the "andromeda-codex" extension will be documented in this file.
+## [0.0.9] - 2025-06-12
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### Added
+- **Codex: Edit Selected Code** command and context menu entry.  
+- **Codex: Find Unit Test for Selected Code** command and context menu entry.
+- **Fixed diff error by removing it in import**  
+- **All commands now write the selected code to a temporary file and run the Codex CLI in a new terminal.**
 
-## [Unreleased]
+## [1.0.0] - 2025-06-12
+- **Fixed bugs with npx codex commands**  
 
-- Added Fix Selected Code feature: fix selected code via editor context menu.
-- Initial release
+## [1.0.1] - 2025-06-13
+
+### Added
+- **Codex: Explain Codebase (Whole Workspace)** command, available from the command palette
+---

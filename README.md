@@ -1,61 +1,37 @@
-# Andromeda Codex
+# Andromeda Codex VS Code Extension
 
-Andromeda Codex is a Visual Studio Code extension that allows you to send prompts to the OpenAI's Codex CLI and automatically edit the currently open file based on your instructions.
-This is expansion of the OpenAI's Codex CLI.
+OpenAI's Codex CLI integration for VS Code.
 
 ## Features
 
-- Send a prompt to Codex directly from VS Code.
-- Automatically edits the active file in the editor using Codex CLI.
-- Fix selected code in the editor using Codex CLI.
-- Simple command palette integration.
+- **Codex: Run Prompt**  
+  Run a custom prompt on the current file using Codex CLI.
 
-## Requirements
+- **Codex: Model o4-mini**  
+  Run a custom prompt using the `o4-mini` model.
 
-- [Node.js](https://nodejs.org/) installed.
-- [Codex CLI](https://www.npmjs.com/package/codex) installed (the extension uses `npx codex`).   In terminal, please npm install -g @openai/codex
-- Internet connection (if Codex CLI requires it).
-- OpenAI API key (if you want to use the Codex CLI with your own API key).
+- **Codex: Fix Selected Code**  
+  Select code, right-click, and choose "Fix Selected Code" to run `codex fix` on your selection in a terminal.
 
-## Extension Settings
+- **Codex: Edit Selected Code**  
+  Select code, right-click, and choose "Edit Selected Code" to run `codex edit` on your selection in a terminal.
 
-This extension does not contribute any settings currently.
+- **Codex: Generate Unit Test for Codebase**  
+  Select code, right-click, and choose "Generate Unit Test for codebase" to run `codex generate unit test` on codebase.
 
 ## Usage
 
-1. Open a file you want to edit.
-2. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`).
-3. Run `Codex: Prompt`.
-4. Enter your prompt and press Enter.
-5. The Codex CLI will process your prompt and edit the file.
+1. Select code in the editor.
+2. Right-click and choose the desired Codex command from the context menu, or use the Command Palette (`Ctrl+Shift+P`).
+3. The extension will write your selection to a temporary file and run the appropriate Codex CLI command in a new terminal.
 
-## Fixing Selected Code
+## Requirements
 
-1. Select the code you want to fix in the editor.
-2. Run `Codex: Fix Selected Code` from the Command Palette (`Ctrl+Shift+P`) or the editor context menu.
-3. The Codex CLI will process the selected code and update it in the editor.
+- [Node.js](https://nodejs.org/)
+- [Codex CLI](https://github.com/openai/openai-codex-cli) (installed via `npx`)
 
-## Known Issues
+## Changelog
 
-- The extension requires an active editor with a saved file.
-- Codex CLI must be installed and accessible via `npx`.
-
-## Release Notes
-0.0.4: added model in codex command in vscode
-0.0.6: added fix selected code in vscode and model o4-mini mode
-
+See [CHANGELOG.md](./CHANGELOG.md) for details.
 
 ---
-
-## Extension Guidelines
-
-- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## For More Information
-
-- [Visual Studio Code API](https://code.visualstudio.com/api)
-- [Publishing Extensions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-- [OpenAI's Codex CLI Reference Guide](https://github.com/openai/codex/tree/main)s
-
-**Enjoy using Andromeda Codex!**

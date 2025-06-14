@@ -2,7 +2,7 @@
   "name": "andromeda-codex",
   "displayName": "andromeda codex",
   "description": "OpenAI's Codex CLI for VScode",
-  "version": "0.0.8",
+  "version": "1.0.1",
   "publisher": "ThomasYIu0447",
   "icon": "images/icon.png",
   "repository": "https://github.com/tomtyiu/codex-vscode-TY/tree/main/packages",
@@ -14,7 +14,7 @@
   ],
   "activationEvents": [
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
@@ -28,12 +28,30 @@
       {
         "command": "codex.fixCode",
         "title": "Codex: Fix Selected Code"
+      },
+      {
+        "command": "codex.editCode",
+        "title": "Codex: Edit Selected Code"
+      },
+      {
+        "command": "codex.findUnitTest",
+        "title": "Codex: Create Unit Test for Selected Code"
       }
     ],
     "menus": {
       "editor/context": [
         {
           "command": "codex.fixCode",
+          "when": "editorTextFocus && editorHasSelection",
+          "group": "navigation"
+        },
+        {
+          "command": "codex.editCode",
+          "when": "editorTextFocus && editorHasSelection",
+          "group": "navigation"
+        },
+        {
+          "command": "codex.findUnitTest",
           "when": "editorTextFocus && editorHasSelection",
           "group": "navigation"
         }
